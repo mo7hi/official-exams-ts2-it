@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Exams Archive - TS2 IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --text-color: #f9fafb;
+            --card-bg: #1f2937;
+            --primary: #60a5fa;
+            --primary-hover: #3b82f6;
+            --success: #34d399;
+            --success-bg: rgba(16, 185, 129, 0.2);
+            --danger: #f87171;
+            --danger-bg: rgba(239, 68, 68, 0.2);
+            --border-color: #374151;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button, select {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        button:hover, select:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border: none;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .year-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .year-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
+        }
+
+        .year-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .year-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .curriculum-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            background-color: var(--border-color);
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .session-section {
+            margin-top: 1rem;
+        }
+
+        .session-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .subject-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .subject-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background-color: var(--bg-color);
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        a.subject-item:hover {
+            filter: brightness(0.95);
+        }
+        [data-theme="dark"] a.subject-item:hover {
+            filter: brightness(1.2);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+
+        .status-available {
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-missing {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            flex: 1;
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* RTL Support */
+        body[dir="rtl"] {
+            font-family: 'Inter', Tahoma, Arial, sans-serif;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 id="app-title">Official Exams Archive</h1>
+            <div class="controls">
+                <select id="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                </select>
+                <select id="filter-select" onchange="renderData()">
+                    <option value="all" id="filter-all">All Files</option>
+                    <option value="available" id="filter-available">Available Only</option>
+                    <option value="missing" id="filter-missing">Missing Only</option>
+                </select>
+                <button id="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number" id="stat-total">0</div>
+                <div id="stat-total-label">Total Files</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" style="color: var(--success)" id="stat-available">0</div>
+                <div id="stat-available-label">Available</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" style="color: var(--danger)" id="stat-missing">0</div>
+                <div id="stat-missing-label">Missing</div>
+            </div>
+        </div>
+
+        <input type="text" id="search-input" class="search-bar" placeholder="Search years, sessions, subjects..." oninput="renderData()">
+
+        <div class="grid" id="data-container">
+            <!-- Content will be injected here by JS -->
+        </div>
+    </div>
+
+    <script>
+        const rawData = {"2009": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2009-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2009-1/24002 En-Fr.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2009-1/24003 En-Fr.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2009-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2009-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2009-1/24006 Fr.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2009-1/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2009-1/24008 Fr.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2009-1/24009 En-Fr-Ar.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2009-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2009-2/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2009-2/24003 Fr-En (1).doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2009-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2009-2/24005 Fr-En-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2009-2/24006.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2009-2/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2009-2/24008 Fr.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2009-2/24009 (1).doc"}}}}, "2010": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2010-1/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2010-1/24003 En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2010-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2010-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2010-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2010-1/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2010-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2010-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2010-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2010-2/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2010-2/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2010-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2010-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2010-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2010-2/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2010-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2010-2/24009.doc"}}}}, "2011": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2011-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2011-1/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2011-1/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2011-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2011-1/24005.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2011-1/24006 En-Fr.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2011-1/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2011-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2011-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2011-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2011-2/24002.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2011-2/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2011-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2011-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2011-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2011-2/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2011-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2011-2/24009.doc"}}}}, "2012": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2012-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2012-1/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2012-1/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2012-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2012-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2012-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2012-1/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2012-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2012-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2012-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2012-2/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2012-2/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2012-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2012-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2012-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2012-2/24007 En-Fr.docx"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2012-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2012-2/24009.doc"}}}}, "2013": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2013-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2013-1/24002 En-Fr.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2013-1/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2013-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2013-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2013-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2013-1/24007 En-Fr.docx"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2013-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2013-1/24009.docx"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": false, "path": null}}}}, "2014": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2014-1/23101.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2014-1/23102 En-Fr.doc"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2014-1/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2014-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2014-1/23105 En-Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2014-1/23106 Fr-En.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2014-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2014-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2015": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2015-1/23101 Fr-En.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2015-1/23102 Fr.doc"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2015-1/23103 Fr.doc"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2015-1/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2015-1/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2015-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2015-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2015-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2015-2/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2015-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2015-2/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2015-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2015-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2015-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2015-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2015-2/23108.doc"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2016": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2016-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2016-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2016-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2016-1/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2016-1/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2016-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2016-1/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2016-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2016-2/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2016-2/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2016-2/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2016-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2016-2/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2016-2/23106 En-Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2016-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2016-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2017": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2017-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2017-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2017-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2017-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2017-1/23105.doc"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2017-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2017-1/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2017-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2017-2/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2017-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2017-2/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2017-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2017-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2017-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2017-2/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2017-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2018": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2018-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2018-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2018-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2018-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2018-1/23105 Fr.doc"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2018-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2018-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2018-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2018-2/23101 En.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2018-2/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2018-2/23103 En-Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2018-2/23104 Fr.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2018-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2018-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2018-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2018-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2019": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2020": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2020-1.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2020-1.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2020-1.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2020-1.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2021": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2021-1/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2021-1/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2021-1/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2021-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2021-1/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2021-1/23106 Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2021-1/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2021-1/23109.docx"}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2021-2/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2021-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2021-2/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2021-2/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2021-2/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2021-2/23106 Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2021-2/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2021-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2021-2/23109.docx"}}}}, "2022": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2022-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2022-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2022-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2022-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2022-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2022-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2022-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2022-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2022-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2022-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2023": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2023-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2023-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2023-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2023-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2023-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2023-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2023-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2023-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2023-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2023-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2024": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2024-1/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2024-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2024-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2024-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2024-1/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2024-1/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2024-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2024-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2024-1/23109.pdf"}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2024-2/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2024-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2024-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2024-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2024-2/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2024-2/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2024-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2024-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2024-2/23109.pdf"}}}}, "2025": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2025-1/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2025-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2025-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2025-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2025-1/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2025-1/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2025-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2025-2/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2025-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2025-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2025-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2025-2/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2025-2/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2025-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}};
+        
+        const translations = {
+            "en": {
+                "app_title": "Official Exams Archive",
+                "search_placeholder": "Search years, sessions, subjects...",
+                "filter_all": "All Files",
+                "filter_available": "Available Only",
+                "filter_missing": "Missing Only",
+                "dark_mode": "Dark Mode",
+                "light_mode": "Light Mode",
+                "stat_total": "Total Files Expected",
+                "stat_available": "Available",
+                "stat_missing": "Missing",
+                "year": "Year",
+                "session": "Session",
+                "curriculum": "Curriculum",
+                "available": "Available",
+                "missing": "Missing",
+                "curr231": "New Curriculum (231)",
+                "curr240": "Old Curriculum (240)",
+                // Subjects
+                "curr231_01": "Database",
+                "curr231_02": "Network",
+                "curr231_03": "JAVA OOP",
+                "curr231_04": "Web",
+                "curr231_05": "Algorithm",
+                "curr231_06": "OR",
+                "curr231_07": "MERISE",
+                "curr231_08": "Law",
+                "curr231_09": "OS",
+                
+                "curr240_01": "Database",
+                "curr240_02": "Network",
+                "curr240_03": "JAVA OOP",
+                "curr240_04": "Web",
+                "curr240_05": "MIS",
+                "curr240_06": "Software Engineering",
+                "curr240_07": "OR",
+                "curr240_08": "MERISE",
+                "curr240_09": "Law"
+            },
+            "ar": {
+                "app_title": "أرشيف الامتحانات الرسمية",
+                "search_placeholder": "البحث في السنوات، الدورات، المواد...",
+                "filter_all": "جميع الملفات",
+                "filter_available": "المتوفر فقط",
+                "filter_missing": "المفقود فقط",
+                "dark_mode": "الوضع الداكن",
+                "light_mode": "الوضع الفاتح",
+                "stat_total": "إجمالي الملفات المتوقعة",
+                "stat_available": "متوفر",
+                "stat_missing": "مفقود",
+                "year": "سنة",
+                "session": "دورة",
+                "curriculum": "المنهج",
+                "available": "متوفر",
+                "missing": "مفقود",
+                "curr231": "المنهج الجديد (231)",
+                "curr240": "المنهج القديم (240)",
+                // Subjects
+                "curr231_01": "قواعد المعطيات",
+                "curr231_02": "الشبكات",
+                "curr231_03": "برمجة موجهة الهدف جافا",
+                "curr231_04": "برمجة ويب",
+                "curr231_05": "الغوريتم وهيكلية المعطيات",
+                "curr231_06": "البحث العملاني",
+                "curr231_07": "طرائق التحليل",
+                "curr231_08": "القانون",
+                "curr231_09": "اعمال تطبيقية على انظمة استثمار الجهاز",
+                
+                "curr240_01": "قواعد المعطيات",
+                "curr240_02": "الشبكات",
+                "curr240_03": "برمجة موجهة الهدف جافا",
+                "curr240_04": "برمجة ويب",
+                "curr240_05": "أنظمة المعلوماتية والإدارة",
+                "curr240_06": "الهندسة البرامجية",
+                "curr240_07": "البحث العملاني",
+                "curr240_08": "طرائق التحليل",
+                "curr240_09": "القانون"
+            },
+            "fr": {
+                "app_title": "Archives des Examens Officiels",
+                "search_placeholder": "Rechercher années, sessions, matières...",
+                "filter_all": "Tous les fichiers",
+                "filter_available": "Disponibles uniquement",
+                "filter_missing": "Manquants uniquement",
+                "dark_mode": "Mode Sombre",
+                "light_mode": "Mode Clair",
+                "stat_total": "Total Fichiers Attendus",
+                "stat_available": "Disponibles",
+                "stat_missing": "Manquants",
+                "year": "Année",
+                "session": "Session",
+                "curriculum": "Programme",
+                "available": "Disponible",
+                "missing": "Manquant",
+                "curr231": "Nouveau Programme (231)",
+                "curr240": "Ancien Programme (240)",
+                // Subjects
+                "curr231_01": "Base de Données",
+                "curr231_02": "Réseaux",
+                "curr231_03": "JAVA OOP",
+                "curr231_04": "Web",
+                "curr231_05": "Algorithmique",
+                "curr231_06": "Recherche Opérationnelle",
+                "curr231_07": "MERISE",
+                "curr231_08": "Droit",
+                "curr231_09": "Systèmes d'Exploitation",
+                
+                "curr240_01": "Base de Données",
+                "curr240_02": "Réseaux",
+                "curr240_03": "JAVA OOP",
+                "curr240_04": "Web",
+                "curr240_05": "Systèmes d'Information",
+                "curr240_06": "Génie Logiciel",
+                "curr240_07": "Recherche Opérationnelle",
+                "curr240_08": "MERISE",
+                "curr240_09": "Droit"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            
+            const themeText = document.getElementById('theme-text');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (newTheme === 'dark') {
+                themeText.textContent = translations[currentLang].light_mode;
+                themeIcon.textContent = '☀️';
+            } else {
+                themeText.textContent = translations[currentLang].dark_mode;
+                themeIcon.textContent = '🌙';
+            }
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+            
+            // Update static texts
+            document.getElementById('app-title').textContent = translations[lang].app_title;
+            document.getElementById('search-input').placeholder = translations[lang].search_placeholder;
+            document.getElementById('filter-all').textContent = translations[lang].filter_all;
+            document.getElementById('filter-available').textContent = translations[lang].filter_available;
+            document.getElementById('filter-missing').textContent = translations[lang].filter_missing;
+            document.getElementById('stat-total-label').textContent = translations[lang].stat_total;
+            document.getElementById('stat-available-label').textContent = translations[lang].stat_available;
+            document.getElementById('stat-missing-label').textContent = translations[lang].stat_missing;
+            
+            // Update theme text
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.getElementById('theme-text').textContent = isDark ? translations[lang].light_mode : translations[lang].dark_mode;
+
+            renderData();
+        }
+
+        function renderData() {
+            const container = document.getElementById('data-container');
+            const filter = document.getElementById('filter-select').value;
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const t = translations[currentLang];
+            
+            container.innerHTML = '';
+            
+            let total = 0;
+            let available = 0;
+            let missing = 0;
+
+            // Sort years descending
+            const years = Object.keys(rawData).sort((a, b) => b - a);
+
+            years.forEach(year => {
+                let yearMatchSearch = year.includes(searchQuery);
+                
+                const sessions = [1, 2];
+                let yearHasContent = false;
+                let yearHtml = `<div class="year-card">
+                    <div class="year-header">
+                        <span class="year-title">${t.year} ${year}</span>
+                        <span class="curriculum-badge">${rawData[year]["1"].curriculum === "231" ? t.curr231 : t.curr240}</span>
+                    </div>`;
+
+                sessions.forEach(session => {
+                    const sData = rawData[year][session.toString()];
+                    let sessionMatchSearch = session.toString().includes(searchQuery);
+                    
+                    let sessionHtml = `<div class="session-section">
+                        <div class="session-title">${t.session} ${session}</div>
+                        <div class="subject-list">`;
+                    
+                    let sessionHasContent = false;
+
+                    const subjects = Object.values(sData.subjects).sort((a, b) => a.code.localeCompare(b.code));
+                    
+                    subjects.forEach(sub => {
+                        total++;
+                        if (sub.available) available++;
+                        else missing++;
+
+                        const subName = t[sub.nameKey] || sub.nameEn;
+                        const subMatchSearch = subName.toLowerCase().includes(searchQuery) || sub.code.includes(searchQuery);
+                        
+                        let showSubject = true;
+
+                        // Filter logic
+                        if (filter === 'available' && !sub.available) showSubject = false;
+                        if (filter === 'missing' && sub.available) showSubject = false;
+
+                        // Search logic
+                        if (searchQuery && !yearMatchSearch && !sessionMatchSearch && !subMatchSearch) showSubject = false;
+
+                        if (showSubject) {
+                            yearHasContent = true;
+                            sessionHasContent = true;
+                            
+                            const statusText = sub.available ? t.available : t.missing;
+                            const statusClass = sub.available ? 'status-available' : 'status-missing';
+                            const titleAttr = sub.available ? sub.path : 'File missing';
+                            
+                            const itemTag = sub.available ? 'a' : 'div';
+                            const hrefAttr = sub.available ? `href="${sub.path}" target="_blank"` : '';
+
+                            sessionHtml += `
+                                <${itemTag} ${hrefAttr} class="subject-item" title="${titleAttr}">
+                                    <span>${sub.code} - ${subName}</span>
+                                    <span class="status-badge ${statusClass}">${statusText}</span>
+                                </${itemTag}>
+                            `;
+                        }
+                    });
+
+                    sessionHtml += `</div></div>`;
+                    
+                    if (sessionHasContent) {
+                        yearHtml += sessionHtml;
+                    }
+                });
+
+                yearHtml += `</div>`;
+                
+                if (yearHasContent) {
+                    container.innerHTML += yearHtml;
+                }
+            });
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-available').textContent = available;
+            document.getElementById('stat-missing').textContent = missing;
+        }
+
+        // Initialize
+        renderData();
+    </script>
+</body>
+</html>
