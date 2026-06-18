@@ -1,561 +1,1292 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Exams Archive - TS2 IT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f3f4f6;
-            --text-color: #1f2937;
-            --card-bg: #ffffff;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --success: #10b981;
-            --success-bg: #d1fae5;
-            --danger: #ef4444;
-            --danger-bg: #fee2e2;
-            --border-color: #e5e7eb;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TS2-IT Official Exams Archive</title>
+  <meta name="description" content="Browse, search, and download official TS2-IT exam files organized by year, session, subject, and language. Covers 2009 to 2025.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       RESET
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ul, ol { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; color: inherit; border: none; background: none; }
+    img { display: block; max-width: 100%; }
 
-        [data-theme="dark"] {
-            --bg-color: #111827;
-            --text-color: #f9fafb;
-            --card-bg: #1f2937;
-            --primary: #60a5fa;
-            --primary-hover: #3b82f6;
-            --success: #34d399;
-            --success-bg: rgba(16, 185, 129, 0.2);
-            --danger: #f87171;
-            --danger-bg: rgba(239, 68, 68, 0.2);
-            --border-color: #374151;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-        }
+    /* =============================================
+       DESIGN TOKENS
+       ============================================= */
+    :root {
+      --bg-body: #08080c;
+      --bg-surface: #111116;
+      --bg-raised: #19191f;
+      --bg-hover: #222229;
+      --bg-input: #16161c;
+      --border: #2a2a34;
+      --border-hover: #3c3c48;
+      --text-1: #eeeef2;
+      --text-2: #9898a8;
+      --text-3: #5c5c6e;
+      --accent: #10b981;
+      --accent-h: #34d399;
+      --accent-bg: rgba(16,185,129,.08);
+      --accent-border: rgba(16,185,129,.22);
+      --danger: #f43f5e;
+      --danger-bg: rgba(244,63,94,.08);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245,158,11,.08);
+      --blue: #60a5fa;
+      --blue-bg: rgba(96,165,250,.1);
+      --green: #34d399;
+      --green-bg: rgba(52,211,153,.1);
+      --amber: #fbbf24;
+      --amber-bg: rgba(251,191,36,.1);
+      --rose: #fb7185;
+      --rose-bg: rgba(251,113,133,.08);
+      --gray-badge: #a1a1aa;
+      --gray-badge-bg: rgba(161,161,170,.1);
+      --dot: rgba(255,255,255,.03);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.3);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,.35);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --radius-pill: 100px;
+      --font: 'Outfit', system-ui, -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+      --focus: 0 0 0 2px var(--bg-body), 0 0 0 4px var(--accent);
+      --transition: .2s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="light"] {
+      --bg-body: #f6f6f8;
+      --bg-surface: #ffffff;
+      --bg-raised: #f0f0f4;
+      --bg-hover: #e6e6ec;
+      --bg-input: #f0f0f4;
+      --border: #d4d4dc;
+      --border-hover: #b0b0bc;
+      --text-1: #111118;
+      --text-2: #52525e;
+      --text-3: #9090a0;
+      --accent: #059669;
+      --accent-h: #047857;
+      --accent-bg: rgba(5,150,105,.06);
+      --accent-border: rgba(5,150,105,.2);
+      --danger: #e11d48;
+      --danger-bg: rgba(225,29,72,.06);
+      --warning: #d97706;
+      --warning-bg: rgba(217,119,6,.06);
+      --blue: #2563eb;
+      --blue-bg: rgba(37,99,235,.07);
+      --green: #059669;
+      --green-bg: rgba(5,150,105,.07);
+      --amber: #d97706;
+      --amber-bg: rgba(217,119,6,.07);
+      --rose: #e11d48;
+      --rose-bg: rgba(225,29,72,.06);
+      --gray-badge: #6b7280;
+      --gray-badge-bg: rgba(107,114,128,.08);
+      --dot: rgba(0,0,0,.03);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.06);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,.08);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    /* =============================================
+       BASE
+       ============================================= */
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-body);
+      color: var(--text-1);
+      line-height: 1.6;
+      min-height: 100dvh;
+      background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+      background-size: 22px 22px;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: var(--transition);
-            line-height: 1.5;
-        }
+    /* =============================================
+       SKIP LINK
+       ============================================= */
+    .skip-link {
+      position: fixed; top: -100%; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #fff; padding: 8px 24px;
+      border-radius: var(--radius-pill); font-weight: 600; z-index: 9999;
+      transition: top var(--transition);
+    }
+    .skip-link:focus { top: 12px; outline: none; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    /* =============================================
+       CONTAINER
+       ============================================= */
+    .container { max-width: 1360px; margin: 0 auto; padding: 0 20px; }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+    /* =============================================
+       HEADER
+       ============================================= */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,8,12,.82);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+    }
+    [data-theme="light"] .header { background: rgba(246,246,248,.82); }
+    .header .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon {
+      width: 32px; height: 32px; background: var(--accent);
+      border-radius: var(--radius-sm); display: grid; place-items: center;
+      color: #fff; font-weight: 700; font-size: 14px;
+    }
+    .logo-text { font-size: 17px; font-weight: 600; letter-spacing: -.02em; }
+    .logo-text span { color: var(--text-3); font-weight: 400; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .theme-toggle {
+      width: 38px; height: 38px; border-radius: var(--radius-sm);
+      display: grid; place-items: center; cursor: pointer;
+      color: var(--text-2); transition: background var(--transition), color var(--transition);
+    }
+    .theme-toggle:hover { background: var(--bg-hover); color: var(--text-1); }
+    .theme-toggle:focus-visible { box-shadow: var(--focus); outline: none; }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-        }
+    /* =============================================
+       STATS
+       ============================================= */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      padding: 24px 0 0;
+    }
+    .stat-card {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+      position: relative; overflow: hidden;
+    }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .stat-card:nth-child(1)::before { background: var(--accent); }
+    .stat-card:nth-child(2)::before { background: var(--blue); }
+    .stat-card:nth-child(3)::before { background: var(--amber); }
+    .stat-card:nth-child(4)::before { background: var(--rose); }
+    .stat-value {
+      font-size: 28px; font-weight: 700; letter-spacing: -.03em; line-height: 1.1;
+    }
+    .stat-label { font-size: 13px; color: var(--text-2); margin-top: 4px; }
 
-        .controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    /* =============================================
+       SEARCH & FILTERS
+       ============================================= */
+    .controls { padding: 20px 0 0; }
+    .search-wrap {
+      position: relative; margin-bottom: 14px;
+    }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-3); pointer-events: none; width: 16px; height: 16px;
+    }
+    .search-input {
+      width: 100%; padding: 10px 80px 10px 40px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 14px; color: var(--text-1);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-input::placeholder { color: var(--text-3); }
+    .search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+    .search-shortcut {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-family: var(--mono); font-size: 11px; color: var(--text-3);
+      background: var(--bg-raised); border: 1px solid var(--border);
+      padding: 2px 8px; border-radius: 4px; pointer-events: none;
+    }
+    .search-clear {
+      position: absolute; right: 52px; top: 50%; transform: translateY(-50%);
+      width: 20px; height: 20px; border-radius: 50%;
+      display: none; place-items: center; cursor: pointer;
+      color: var(--text-3); background: var(--bg-hover);
+    }
+    .search-clear.visible { display: grid; }
+    .search-clear:hover { color: var(--text-1); }
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
+    }
+    .filter-group { display: flex; flex-direction: column; gap: 4px; }
+    .filter-label {
+      font-size: 11px; font-weight: 500; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .btn-group { display: flex; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
+    .btn-toggle {
+      padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer;
+      background: var(--bg-surface); border-right: 1px solid var(--border);
+      color: var(--text-2); transition: all var(--transition); white-space: nowrap;
+    }
+    .btn-toggle:last-child { border-right: none; }
+    .btn-toggle:hover { background: var(--bg-hover); color: var(--text-1); }
+    .btn-toggle.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-border); }
+    .btn-toggle:focus-visible { box-shadow: var(--focus); outline: none; position: relative; z-index: 1; }
+    .filter-select {
+      padding: 6px 30px 6px 10px; font-size: 13px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); cursor: pointer;
+      appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239898a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+      transition: border-color var(--transition);
+    }
+    .filter-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+    .filter-select option { background: var(--bg-surface); color: var(--text-1); }
+    .btn-clear {
+      padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer;
+      color: var(--text-3); border-radius: var(--radius-sm);
+      transition: all var(--transition); border: 1px solid transparent;
+    }
+    .btn-clear:hover { color: var(--danger); background: var(--danger-bg); }
+    .btn-clear:focus-visible { box-shadow: var(--focus); outline: none; }
 
-        button, select {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            outline: none;
-        }
+    /* =============================================
+       RESULTS INFO
+       ============================================= */
+    .results-info {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0 0; font-size: 13px; color: var(--text-2);
+    }
+    .results-count strong { color: var(--text-1); font-weight: 600; }
 
-        button:hover, select:hover {
-            border-color: var(--primary);
-        }
+    /* =============================================
+       TIMELINE
+       ============================================= */
+    .timeline-section { padding: 16px 0 0; }
+    .timeline-strip {
+      display: flex; gap: 6px; overflow-x: auto; padding: 6px 0 10px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .timeline-strip::-webkit-scrollbar { height: 4px; }
+    .timeline-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .tl-pill {
+      scroll-snap-align: center; flex-shrink: 0;
+      padding: 5px 14px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      color: var(--text-2); transition: all var(--transition);
+    }
+    .tl-pill:hover { border-color: var(--accent-border); color: var(--text-1); background: var(--accent-bg); }
+    .tl-pill:focus-visible { box-shadow: var(--focus); outline: none; }
+    .tl-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .tl-pill.missing { opacity: .4; border-style: dashed; background: transparent; }
+    .tl-pill.missing:hover { opacity: .7; }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
+    /* =============================================
+       YEAR GROUPS
+       ============================================= */
+    .exams-container { padding: 8px 0 32px; }
+    .year-group {
+      padding: 20px 0; border-top: 1px solid var(--border);
+    }
+    .year-group:first-child { border-top: none; }
+    .year-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .year-label {
+      font-size: 22px; font-weight: 700; letter-spacing: -.03em;
+      font-family: var(--mono);
+    }
+    .curriculum-badge {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: var(--radius-pill); letter-spacing: .03em;
+    }
+    .curriculum-badge.old { background: var(--amber-bg); color: var(--amber); }
+    .curriculum-badge.new { background: var(--accent-bg); color: var(--accent); }
+    .year-group.missing-year .year-header { opacity: .5; }
+    .sessions-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px;
+    }
 
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            border: none;
-        }
+    /* =============================================
+       SESSION CARDS
+       ============================================= */
+    .session-card {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .session-card:hover { border-color: var(--border-hover); }
+    .session-card--missing {
+      border-style: dashed; opacity: .5;
+    }
+    .session-card--special {
+      border-color: var(--warning); border-style: dashed;
+    }
+    .sc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      background: var(--bg-raised);
+    }
+    .sc-header-left { display: flex; align-items: center; gap: 8px; }
+    .session-num {
+      font-weight: 600; font-size: 14px;
+    }
+    .file-count-badge {
+      font-size: 11px; color: var(--text-3); font-family: var(--mono);
+    }
+    .sc-body { padding: 6px 0; }
 
-        .search-bar {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-color);
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            margin-bottom: 2rem;
-            transition: var(--transition);
-        }
+    /* =============================================
+       SUBJECT GROUPS & FILE ROWS
+       ============================================= */
+    .subject-group {
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    [data-theme="light"] .subject-group {
+      border-bottom-color: rgba(0,0,0,.04);
+    }
+    .subject-group:last-child { border-bottom: none; }
+    .subject-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 16px; font-size: 13px;
+    }
+    .subject-code {
+      font-family: var(--mono); font-size: 11px; font-weight: 500;
+      color: var(--text-3); width: 22px; flex-shrink: 0;
+    }
+    .subject-name {
+      font-weight: 500; color: var(--text-2); min-width: 110px; flex-shrink: 0;
+      font-size: 12px;
+    }
+    .file-link {
+      display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+      padding: 3px 8px; border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    .file-link:hover { background: var(--bg-hover); }
+    .file-link:focus-visible { box-shadow: var(--focus); outline: none; }
+    .file-link:active { transform: scale(.99); }
+    .file-name {
+      font-family: var(--mono); font-size: 12px; color: var(--text-1);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      flex: 1;
+    }
+    .file-badges { display: flex; gap: 4px; flex-shrink: 0; }
+    .dl-icon {
+      width: 14px; height: 14px; color: var(--text-3); flex-shrink: 0;
+      transition: color var(--transition);
+    }
+    .file-link:hover .dl-icon { color: var(--accent); }
+    .missing-file {
+      display: flex; align-items: center; gap: 6px;
+      padding: 3px 8px; font-size: 12px; color: var(--text-3);
+      font-style: italic;
+    }
+    .missing-file svg { width: 12px; height: 12px; color: var(--danger); opacity: .6; }
+    .missing-label { display: flex; align-items: center; gap: 4px; color: var(--text-3); font-size: 12px; }
+    .special-note {
+      padding: 12px 16px; font-size: 13px; color: var(--warning);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .special-note svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-        .search-bar:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
+    /* =============================================
+       BADGES
+       ============================================= */
+    .badge {
+      font-size: 10px; font-weight: 600; padding: 2px 7px;
+      border-radius: var(--radius-pill); letter-spacing: .03em;
+      white-space: nowrap; text-transform: uppercase;
+    }
+    .badge-en { background: var(--blue-bg); color: var(--blue); }
+    .badge-fr { background: var(--green-bg); color: var(--green); }
+    .badge-ar { background: var(--amber-bg); color: var(--amber); }
+    .badge-pdf { background: var(--rose-bg); color: var(--rose); }
+    .badge-docx { background: var(--blue-bg); color: var(--blue); }
+    .badge-doc { background: var(--gray-badge-bg); color: var(--gray-badge); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
+    /* =============================================
+       COVERAGE MATRIX
+       ============================================= */
+    .matrix-section {
+      padding: 24px 0 40px;
+    }
+    .matrix-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+    }
+    .matrix-title { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+    .matrix-toggle {
+      padding: 6px 16px; font-size: 13px; font-weight: 500; cursor: pointer;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      color: var(--text-2); background: var(--bg-surface);
+      transition: all var(--transition);
+    }
+    .matrix-toggle:hover { border-color: var(--accent-border); color: var(--accent); }
+    .matrix-toggle:focus-visible { box-shadow: var(--focus); outline: none; }
+    .matrix-era {
+      margin-bottom: 24px;
+    }
+    .matrix-era-label {
+      font-size: 14px; font-weight: 600; color: var(--text-2); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .matrix-wrap {
+      overflow-x: auto; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .matrix-table {
+      width: 100%; border-collapse: collapse; font-size: 12px;
+      min-width: 600px;
+    }
+    .matrix-table th {
+      padding: 8px 10px; font-weight: 600; color: var(--text-2);
+      background: var(--bg-raised); border-bottom: 1px solid var(--border);
+      text-align: center; white-space: nowrap; font-size: 11px;
+    }
+    .matrix-table th:first-child { text-align: left; position: sticky; left: 0; z-index: 1; background: var(--bg-raised); }
+    .matrix-table td {
+      padding: 6px 10px; text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    [data-theme="light"] .matrix-table td { border-bottom-color: rgba(0,0,0,.04); }
+    .matrix-table td:first-child {
+      text-align: left; font-family: var(--mono); font-weight: 500; font-size: 12px;
+      color: var(--text-2); position: sticky; left: 0; background: var(--bg-surface);
+      white-space: nowrap;
+    }
+    .matrix-table tr:hover td { background: var(--bg-hover); }
+    .matrix-table tr:hover td:first-child { background: var(--bg-hover); }
+    .matrix-table tr.missing-row { opacity: .35; }
+    .matrix-table tr.missing-row td { border-style: dashed; }
+    .dot {
+      display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    }
+    .dot-available { background: var(--accent); box-shadow: 0 0 6px var(--accent-bg); }
+    .dot-missing { background: var(--border); }
+    .dot-partial { background: var(--warning); }
+    .matrix-content { display: none; }
+    .matrix-content.visible { display: block; }
 
-        .year-card {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .footer {
+      border-top: 1px solid var(--border); padding: 28px 0;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+      font-size: 13px; color: var(--text-2);
+    }
+    .footer-section h4 {
+      font-size: 12px; font-weight: 600; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .kbd {
+      font-family: var(--mono); font-size: 10px; padding: 1px 6px;
+      background: var(--bg-raised); border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+    .shortcut-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .footer-note { font-size: 12px; color: var(--text-3); margin-top: 20px; text-align: center; }
 
-        .year-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-color: var(--primary);
-        }
+    /* =============================================
+       BACK TO TOP
+       ============================================= */
+    .back-to-top {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      display: grid; place-items: center; cursor: pointer;
+      color: var(--text-2); box-shadow: var(--shadow-md);
+      transition: all var(--transition); opacity: 0; pointer-events: none;
+      z-index: 50;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .back-to-top:focus-visible { box-shadow: var(--focus); outline: none; }
+    .back-to-top svg { width: 18px; height: 18px; }
 
-        .year-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
+    /* =============================================
+       UTILITIES
+       ============================================= */
+    .hidden { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
 
-        .year-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .sessions-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 640px) {
+      .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat-card { padding: 12px 14px; }
+      .stat-value { font-size: 22px; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .btn-group { width: 100%; }
+      .btn-toggle { flex: 1; text-align: center; padding: 8px 10px; }
+      .filter-select { width: 100%; }
+      .year-label { font-size: 18px; }
+      .subject-row { flex-wrap: wrap; gap: 4px; }
+      .subject-name { min-width: unset; }
+      .file-link { width: 100%; }
+      .file-extra-row { padding-top: 0; }
+      .file-extra-row .subject-code,
+      .file-extra-row .subject-name { display: none; }
+      .sessions-grid { grid-template-columns: 1fr; min-width: 0; }
+      .container { padding: 0 14px; }
+      .logo-text span { display: none; }
+    }
 
-        .curriculum-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            background-color: var(--border-color);
-            color: var(--text-color);
-            font-weight: 600;
-        }
+    /* =============================================
+       REDUCED MOTION
+       ============================================= */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+      }
+    }
 
-        .session-section {
-            margin-top: 1rem;
-        }
-
-        .session-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .subject-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .subject-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            background-color: var(--bg-color);
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: var(--transition);
-        }
-
-        a.subject-item:hover {
-            filter: brightness(0.95);
-        }
-        [data-theme="dark"] a.subject-item:hover {
-            filter: brightness(1.2);
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-weight: 600;
-        }
-
-        .status-available {
-            background-color: var(--success-bg);
-            color: var(--success);
-        }
-
-        .status-missing {
-            background-color: var(--danger-bg);
-            color: var(--danger);
-        }
-
-        .stats {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-box {
-            flex: 1;
-            background-color: var(--card-bg);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--card-shadow);
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* RTL Support */
-        body[dir="rtl"] {
-            font-family: 'Inter', Tahoma, Arial, sans-serif;
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-
-    </style>
+    /* =============================================
+       PRINT
+       ============================================= */
+    @media print {
+      .header, .controls, .timeline-section, .back-to-top, .search-wrap { display: none; }
+      body { background: #fff; color: #000; }
+      .session-card { break-inside: avoid; border: 1px solid #ccc; }
+    }
+  </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
+  <header class="header" role="banner">
     <div class="container">
-        <header>
-            <h1 id="app-title">Official Exams Archive</h1>
-            <div class="controls">
-                <select id="lang-select" onchange="changeLanguage(this.value)">
-                    <option value="en">English</option>
-                    <option value="ar">العربية</option>
-                    <option value="fr">Français</option>
-                </select>
-                <select id="filter-select" onchange="renderData()">
-                    <option value="all" id="filter-all">All Files</option>
-                    <option value="available" id="filter-available">Available Only</option>
-                    <option value="missing" id="filter-missing">Missing Only</option>
-                </select>
-                <button id="theme-toggle" onclick="toggleTheme()">
-                    <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
-                </button>
-            </div>
-        </header>
-
-        <div class="stats">
-            <div class="stat-box">
-                <div class="stat-number" id="stat-total">0</div>
-                <div id="stat-total-label">Total Files</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number" style="color: var(--success)" id="stat-available">0</div>
-                <div id="stat-available-label">Available</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number" style="color: var(--danger)" id="stat-missing">0</div>
-                <div id="stat-missing-label">Missing</div>
-            </div>
-        </div>
-
-        <input type="text" id="search-input" class="search-bar" placeholder="Search years, sessions, subjects..." oninput="renderData()">
-
-        <div class="grid" id="data-container">
-            <!-- Content will be injected here by JS -->
-        </div>
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true">TS</div>
+        <div class="logo-text">TS2-IT Exams <span>Archive</span></div>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <script>
-        const rawData = {"2009": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2009-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2009-1/24002 En-Fr.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2009-1/24003 En-Fr.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2009-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2009-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2009-1/24006 Fr.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2009-1/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2009-1/24008 Fr.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2009-1/24009 En-Fr-Ar.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2009-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2009-2/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2009-2/24003 Fr-En (1).doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2009-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2009-2/24005 Fr-En-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2009-2/24006.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2009-2/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2009-2/24008 Fr.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2009-2/24009 (1).doc"}}}}, "2010": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2010-1/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2010-1/24003 En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2010-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2010-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2010-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2010-1/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2010-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2010-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2010-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2010-2/24002 Fr-En.doc"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2010-2/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2010-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2010-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2010-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2010-2/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2010-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2010-2/24009.doc"}}}}, "2011": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2011-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2011-1/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2011-1/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2011-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2011-1/24005.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2011-1/24006 En-Fr.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2011-1/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2011-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2011-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2011-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2011-2/24002.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2011-2/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2011-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2011-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2011-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2011-2/24007 Fr-En.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2011-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2011-2/24009.doc"}}}}, "2012": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2012-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2012-1/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2012-1/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2012-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2012-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2012-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2012-1/24007.doc"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2012-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2012-1/24009.doc"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2012-2/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2012-2/24002 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2012-2/24003 En.docx"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2012-2/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2012-2/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2012-2/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2012-2/24007 En-Fr.docx"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2012-2/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2012-2/24009.doc"}}}}, "2013": {"1": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": true, "path": "2013-1/24001 En-Fr.doc"}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": true, "path": "2013-1/24002 En-Fr.docx"}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": true, "path": "2013-1/24003 Fr-En.doc"}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": true, "path": "2013-1/24004 En.doc"}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": true, "path": "2013-1/24005 En-Fr-Ar.doc"}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": true, "path": "2013-1/24006 Fr-En.doc"}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": true, "path": "2013-1/24007 En-Fr.docx"}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": true, "path": "2013-1/24008 Fr-En.doc"}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": true, "path": "2013-1/24009.docx"}}}, "2": {"curriculum": "240", "subjects": {"01": {"code": "01", "nameKey": "curr240_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr240_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr240_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr240_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr240_05", "nameEn": "MIS", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr240_06", "nameEn": "Software Engineering", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr240_07", "nameEn": "OR", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr240_08", "nameEn": "MERISE", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr240_09", "nameEn": "Law", "available": false, "path": null}}}}, "2014": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2014-1/23101.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2014-1/23102 En-Fr.doc"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2014-1/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2014-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2014-1/23105 En-Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2014-1/23106 Fr-En.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2014-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2014-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2015": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2015-1/23101 Fr-En.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2015-1/23102 Fr.doc"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2015-1/23103 Fr.doc"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2015-1/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2015-1/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2015-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2015-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2015-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2015-2/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2015-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2015-2/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2015-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2015-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2015-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2015-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2015-2/23108.doc"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2016": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2016-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2016-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2016-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2016-1/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2016-1/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2016-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2016-1/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2016-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2016-2/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2016-2/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2016-2/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2016-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2016-2/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2016-2/23106 En-Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2016-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2016-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2017": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2017-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2017-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2017-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2017-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2017-1/23105.doc"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2017-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2017-1/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2017-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2017-2/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2017-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2017-2/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2017-2/23104 Fr.doc"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2017-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2017-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2017-2/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2017-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2018": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2018-1/23101.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2018-1/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2018-1/23103 Fr-En.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2018-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2018-1/23105 Fr.doc"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2018-1/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2018-1/23107 En.doc"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2018-1/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2018-2/23101 En.doc"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2018-2/23102 Fr-En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2018-2/23103 En-Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2018-2/23104 Fr.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2018-2/23105.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2018-2/23106.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2018-2/23107.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2018-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2019": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2020": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2020-1.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2020-1.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2020-1.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2020-1.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": false, "path": null}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": false, "path": null}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": false, "path": null}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": false, "path": null}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2021": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2021-1/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2021-1/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2021-1/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2021-1/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2021-1/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2021-1/23106 Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2021-1/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2021-1/23109.docx"}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2021-2/23101 Fr.docx"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2021-2/23102 En.docx"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2021-2/23103 Fr.docx"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2021-2/23104 En.docx"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2021-2/23105 Fr.docx"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2021-2/23106 Fr.docx"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2021-2/23107 En.docx"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2021-2/23108.docx"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2021-2/23109.docx"}}}}, "2022": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2022-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2022-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2022-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2022-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2022-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2022-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2022-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2022-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2022-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2022-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2023": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2023-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2023-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2023-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2023-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2023-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": false, "path": null}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2023-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2023-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2023-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": false, "path": null}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": false, "path": null}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2023-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2023-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}, "2024": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2024-1/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2024-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2024-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2024-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2024-1/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2024-1/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2024-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2024-1/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2024-1/23109.pdf"}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2024-2/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2024-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2024-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2024-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2024-2/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2024-2/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2024-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": true, "path": "2024-2/23108.pdf"}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": true, "path": "2024-2/23109.pdf"}}}}, "2025": {"1": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2025-1/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2025-1/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2025-1/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2025-1/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2025-1/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2025-1/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2025-1/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}, "2": {"curriculum": "231", "subjects": {"01": {"code": "01", "nameKey": "curr231_01", "nameEn": "Database", "available": true, "path": "2025-2/23101.pdf"}, "02": {"code": "02", "nameKey": "curr231_02", "nameEn": "Network", "available": true, "path": "2025-2/23102.pdf"}, "03": {"code": "03", "nameKey": "curr231_03", "nameEn": "JAVA OOP", "available": true, "path": "2025-2/23103.pdf"}, "04": {"code": "04", "nameKey": "curr231_04", "nameEn": "Web", "available": true, "path": "2025-2/23104.pdf"}, "05": {"code": "05", "nameKey": "curr231_05", "nameEn": "Algorithm", "available": true, "path": "2025-2/23105.pdf"}, "06": {"code": "06", "nameKey": "curr231_06", "nameEn": "OR", "available": true, "path": "2025-2/23106.pdf"}, "07": {"code": "07", "nameKey": "curr231_07", "nameEn": "MERISE", "available": true, "path": "2025-2/23107.pdf"}, "08": {"code": "08", "nameKey": "curr231_08", "nameEn": "Law", "available": false, "path": null}, "09": {"code": "09", "nameKey": "curr231_09", "nameEn": "OS", "available": false, "path": null}}}}};
-        
-        const translations = {
-            "en": {
-                "app_title": "Official Exams Archive",
-                "search_placeholder": "Search years, sessions, subjects...",
-                "filter_all": "All Files",
-                "filter_available": "Available Only",
-                "filter_missing": "Missing Only",
-                "dark_mode": "Dark Mode",
-                "light_mode": "Light Mode",
-                "stat_total": "Total Files Expected",
-                "stat_available": "Available",
-                "stat_missing": "Missing",
-                "year": "Year",
-                "session": "Session",
-                "curriculum": "Curriculum",
-                "available": "Available",
-                "missing": "Missing",
-                "curr231": "New Curriculum (231)",
-                "curr240": "Old Curriculum (240)",
-                // Subjects
-                "curr231_01": "Database",
-                "curr231_02": "Network",
-                "curr231_03": "JAVA OOP",
-                "curr231_04": "Web",
-                "curr231_05": "Algorithm",
-                "curr231_06": "OR",
-                "curr231_07": "MERISE",
-                "curr231_08": "Law",
-                "curr231_09": "OS",
-                
-                "curr240_01": "Database",
-                "curr240_02": "Network",
-                "curr240_03": "JAVA OOP",
-                "curr240_04": "Web",
-                "curr240_05": "MIS",
-                "curr240_06": "Software Engineering",
-                "curr240_07": "OR",
-                "curr240_08": "MERISE",
-                "curr240_09": "Law"
-            },
-            "ar": {
-                "app_title": "أرشيف الامتحانات الرسمية",
-                "search_placeholder": "البحث في السنوات، الدورات، المواد...",
-                "filter_all": "جميع الملفات",
-                "filter_available": "المتوفر فقط",
-                "filter_missing": "المفقود فقط",
-                "dark_mode": "الوضع الداكن",
-                "light_mode": "الوضع الفاتح",
-                "stat_total": "إجمالي الملفات المتوقعة",
-                "stat_available": "متوفر",
-                "stat_missing": "مفقود",
-                "year": "سنة",
-                "session": "دورة",
-                "curriculum": "المنهج",
-                "available": "متوفر",
-                "missing": "مفقود",
-                "curr231": "المنهج الجديد (231)",
-                "curr240": "المنهج القديم (240)",
-                // Subjects
-                "curr231_01": "قواعد المعطيات",
-                "curr231_02": "الشبكات",
-                "curr231_03": "برمجة موجهة الهدف جافا",
-                "curr231_04": "برمجة ويب",
-                "curr231_05": "الغوريتم وهيكلية المعطيات",
-                "curr231_06": "البحث العملاني",
-                "curr231_07": "طرائق التحليل",
-                "curr231_08": "القانون",
-                "curr231_09": "اعمال تطبيقية على انظمة استثمار الجهاز",
-                
-                "curr240_01": "قواعد المعطيات",
-                "curr240_02": "الشبكات",
-                "curr240_03": "برمجة موجهة الهدف جافا",
-                "curr240_04": "برمجة ويب",
-                "curr240_05": "أنظمة المعلوماتية والإدارة",
-                "curr240_06": "الهندسة البرامجية",
-                "curr240_07": "البحث العملاني",
-                "curr240_08": "طرائق التحليل",
-                "curr240_09": "القانون"
-            },
-            "fr": {
-                "app_title": "Archives des Examens Officiels",
-                "search_placeholder": "Rechercher années, sessions, matières...",
-                "filter_all": "Tous les fichiers",
-                "filter_available": "Disponibles uniquement",
-                "filter_missing": "Manquants uniquement",
-                "dark_mode": "Mode Sombre",
-                "light_mode": "Mode Clair",
-                "stat_total": "Total Fichiers Attendus",
-                "stat_available": "Disponibles",
-                "stat_missing": "Manquants",
-                "year": "Année",
-                "session": "Session",
-                "curriculum": "Programme",
-                "available": "Disponible",
-                "missing": "Manquant",
-                "curr231": "Nouveau Programme (231)",
-                "curr240": "Ancien Programme (240)",
-                // Subjects
-                "curr231_01": "Base de Données",
-                "curr231_02": "Réseaux",
-                "curr231_03": "JAVA OOP",
-                "curr231_04": "Web",
-                "curr231_05": "Algorithmique",
-                "curr231_06": "Recherche Opérationnelle",
-                "curr231_07": "MERISE",
-                "curr231_08": "Droit",
-                "curr231_09": "Systèmes d'Exploitation",
-                
-                "curr240_01": "Base de Données",
-                "curr240_02": "Réseaux",
-                "curr240_03": "JAVA OOP",
-                "curr240_04": "Web",
-                "curr240_05": "Systèmes d'Information",
-                "curr240_06": "Génie Logiciel",
-                "curr240_07": "Recherche Opérationnelle",
-                "curr240_08": "MERISE",
-                "curr240_09": "Droit"
-            }
-        };
+  <main id="main" class="main">
+    <div class="container">
+      <!-- Stats -->
+      <section class="stats" id="stats-section" aria-label="Archive statistics"></section>
 
-        let currentLang = 'en';
+      <!-- Search & Filters -->
+      <section class="controls" aria-label="Search and filter controls">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="search" id="search-input" class="search-input" placeholder="Search by subject, file code, year..." aria-label="Search exams" autocomplete="off">
+          <button id="search-clear" class="search-clear" aria-label="Clear search" title="Clear search">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+          <span class="search-shortcut" aria-hidden="true">/</span>
+        </div>
+        <div class="filter-bar" id="filter-bar">
+          <div class="filter-group">
+            <span class="filter-label" id="curriculum-label">Curriculum</span>
+            <div class="btn-group" role="group" aria-labelledby="curriculum-label">
+              <button class="btn-toggle active" data-filter="curriculum" data-value="all">All</button>
+              <button class="btn-toggle" data-filter="curriculum" data-value="old">Old (240)</button>
+              <button class="btn-toggle" data-filter="curriculum" data-value="new">New (231)</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label" id="session-label">Session</span>
+            <div class="btn-group" role="group" aria-labelledby="session-label">
+              <button class="btn-toggle active" data-filter="session" data-value="all">Both</button>
+              <button class="btn-toggle" data-filter="session" data-value="1">S1</button>
+              <button class="btn-toggle" data-filter="session" data-value="2">S2</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filter-subject">Subject</label>
+            <select id="filter-subject" class="filter-select">
+              <option value="">All Subjects</option>
+              <option value="01">01 - Database</option>
+              <option value="02">02 - Network</option>
+              <option value="03">03 - Java OOP</option>
+              <option value="04">04 - Web</option>
+              <option value="05">05 - Algorithm / MIS</option>
+              <option value="06">06 - OR / Software Eng.</option>
+              <option value="07">07 - MERISE / OR</option>
+              <option value="08">08 - Law / MERISE</option>
+              <option value="09">09 - OS / Law</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filter-lang">Language</label>
+            <select id="filter-lang" class="filter-select">
+              <option value="">All Languages</option>
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="ar">Arabic</option>
+              <option value="none">Not specified</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filter-type">File Type</label>
+            <select id="filter-type" class="filter-select">
+              <option value="">All Types</option>
+              <option value="pdf">PDF</option>
+              <option value="docx">DOCX</option>
+              <option value="doc">DOC</option>
+            </select>
+          </div>
+          <div class="filter-group" style="justify-content:flex-end">
+            <button class="btn-clear" id="clear-filters">Clear Filters</button>
+          </div>
+        </div>
+      </section>
 
-        function toggleTheme() {
-            const root = document.documentElement;
-            const currentTheme = root.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            root.setAttribute('data-theme', newTheme);
-            
-            const themeText = document.getElementById('theme-text');
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (newTheme === 'dark') {
-                themeText.textContent = translations[currentLang].light_mode;
-                themeIcon.textContent = '☀️';
+      <!-- Results info -->
+      <div class="results-info" role="status" aria-live="polite" id="results-info"></div>
+
+      <!-- Timeline -->
+      <nav class="timeline-section" aria-label="Year navigation">
+        <div class="timeline-strip" id="timeline"></div>
+      </nav>
+
+      <!-- Exams content -->
+      <div id="exams-container" class="exams-container" role="region" aria-label="Exam files listing"></div>
+
+      <!-- Coverage Matrix -->
+      <section id="matrix-section" class="matrix-section" aria-label="Coverage matrix">
+        <div class="matrix-header">
+          <h2 class="matrix-title">Coverage Matrix</h2>
+          <button class="matrix-toggle" id="matrix-toggle" aria-expanded="false" aria-controls="matrix-content">Show Matrix</button>
+        </div>
+        <div class="matrix-content" id="matrix-content" role="region"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>Legend</h4>
+          <div class="legend-item"><span class="badge badge-en">EN</span> English</div>
+          <div class="legend-item"><span class="badge badge-fr">FR</span> French</div>
+          <div class="legend-item"><span class="badge badge-ar">AR</span> Arabic</div>
+          <div class="legend-item"><span class="badge badge-pdf">PDF</span> PDF format</div>
+          <div class="legend-item"><span class="badge badge-docx">DOCX</span> Word (new)</div>
+          <div class="legend-item"><span class="badge badge-doc">DOC</span> Word (legacy)</div>
+        </div>
+        <div class="footer-section">
+          <h4>Keyboard Shortcuts</h4>
+          <div class="shortcut-item"><span class="kbd">/</span> Focus search</div>
+          <div class="shortcut-item"><span class="kbd">Esc</span> Clear search</div>
+          <div class="shortcut-item"><span class="kbd">T</span> Toggle theme</div>
+          <div class="shortcut-item"><span class="kbd">M</span> Toggle matrix</div>
+        </div>
+        <div class="footer-section">
+          <h4>Coverage</h4>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span> Available</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span> Partial</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--border)"></span> Missing</div>
+          <div class="legend-item" style="margin-top:8px;font-size:12px;color:var(--text-3)">
+            Old curriculum (240): 2009-2013<br>New curriculum (231): 2014-2025
+          </div>
+        </div>
+      </div>
+      <p class="footer-note">TS2-IT Official Exams Archive. Files organized by year, session, subject, and language.</p>
+    </div>
+  </footer>
+
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    /* =============================================
+       CONSTANTS
+       ============================================= */
+    const SUBJECTS_OLD = {
+      '01':'Database','02':'Network','03':'Java OOP','04':'Web',
+      '05':'MIS','06':'Software Eng.','07':'OR','08':'MERISE','09':'Law'
+    };
+    const SUBJECTS_NEW = {
+      '01':'Database','02':'Network','03':'Java OOP','04':'Web',
+      '05':'Algorithm','06':'OR','07':'MERISE','08':'Law','09':'OS'
+    };
+    const ALL_YEARS = [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    const MISSING_SESSIONS = new Set(['2013-2','2014-2','2019-1','2019-2','2020-2']);
+    const SPECIAL_SESSIONS = { '2020-1': { file:'2020-1.pdf', note:'All subjects combined in a single PDF file' } };
+
+    const RAW_DATA = {
+      '2009-1':['24001 En-Fr.doc','24002 En-Fr.doc','24003 En-Fr.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 En.doc','24006 Fr.doc','24007 Fr-En.doc','24008 En.doc','24008 Fr.doc','24009 En-Fr-Ar.doc'],
+      '2009-2':['24001 En-Fr.doc','24002 Fr-En.doc','24003 Fr-En.doc','24003 Fr-En (1).doc','24003 Fr-En (3).doc','24003 Fr-En (4).doc','24003 Fr-En (5).doc','24003 Fr-En (6).doc','24004 En.doc','24004 En (1).doc','24004 Fr.doc','24004 Fr (1).doc','24005 En-Fr-Ar.doc','24005 Fr-En-Ar.doc','24006.doc','24007.doc','24008 Fr.doc','24009.doc','24009 (1).doc'],
+      '2010-1':['24002 Fr-En.doc','24003 En.doc','24003 Fr.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007.doc','24008 Fr-En.doc','24009.doc'],
+      '2010-2':['24001 En-Fr.doc','24002 Fr-En.doc','24003 Fr-En.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007 Fr-En.doc','24008 Fr-En.doc','24009.doc'],
+      '2011-1':['24001 En-Fr.doc','24002 Fr-En.docx','24003 En.docx','24003 Fr.docx','24004 En.doc','24004 Fr.doc','24005.doc','24006 En-Fr.doc','24007 Fr-En.doc','24008 Fr-En.doc','24009.doc'],
+      '2011-2':['24001 En-Fr.doc','24002.docx','24003 Fr-En.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007 Fr-En.doc','24008 Fr-En.doc','24009.doc'],
+      '2012-1':['24001 En-Fr.doc','24002 Fr-En.docx','24003 En.docx','24003 Fr.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007 En-Fr.docx','24008 Fr-En.doc','24009.doc'],
+      '2012-2':['24001 En-Fr.doc','24002 Fr-En.docx','24003 En.docx','24003 Fr.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007 En-Fr.docx','24008 Fr-En.doc','24009.doc'],
+      '2013-1':['24001 En-Fr.doc','24002 En-Fr.docx','24003 Fr-En.doc','24004 En.doc','24004 Fr.doc','24005 En-Fr-Ar.doc','24006 Fr-En.doc','24007 En-Fr.docx','24008 Fr-En.doc','24009.docx'],
+      '2014-1':['23101.doc','23102 En-Fr.doc','23103 En.docx','23103 Fr.docx','23104 En.docx','23104 Fr.docx','23105 En-Fr.docx','23106 Fr-En.docx','23107 En.doc','23107 Fr.doc','23108.docx'],
+      '2015-1':['23101 En.doc','23101 Fr-En.doc','23102 En.doc','23102 Fr.doc','23103 En.doc','23103 Fr.doc','23104 En.doc','23104 Fr.doc','23105.docx','23106.docx','23107 En.doc','23107 Fr.doc','23108.docx'],
+      '2015-2':['23101.docx','23102 En.docx','23103 En.docx','23103 Fr.docx','23104 En.doc','23104 Fr.doc','23105.docx','23106.docx','23107.docx','23108.doc'],
+      '2016-1':['23101.docx','23102 Fr-En.docx','23103 Fr-En.docx','23104 En.doc','23104 Fr.doc','23105.docx','23106.docx','23107.docx','23108.docx'],
+      '2016-2':['23101 En.docx','23101 Fr.docx','23102 Fr-En.docx','23103 Fr-En.docx','23104 En.doc','23104 Fr.doc','23105 En.docx','23105 Fr.docx','23106 En-Fr.docx','23107.docx','23108.docx'],
+      '2017-1':['23101.docx','23102 Fr-En.docx','23103 Fr-En.docx','23104 En.docx','23104 Fr.docx','23105.doc','23106.docx','23107 En.docx','23107 Fr.docx','23108.docx'],
+      '2017-2':['23101.docx','23102 En.docx','23102 Fr.docx','23103 Fr-En.docx','23104 En.doc','23104 Fr.doc','23105.docx','23106.docx','23107 Ar.doc','23107 En.doc','23107 Fr.doc','23108.docx'],
+      '2018-1':['23101.docx','23102 Fr-En.docx','23103 Fr-En.docx','23104 En.docx','23104 Fr.docx','23105 En.doc','23105 Fr.doc','23106.docx','23107 En.doc','23107 Fr.doc','23108.docx'],
+      '2018-2':['23101 En.doc','23101 Fr.doc','23102 Fr-En.docx','23103 En-Fr.docx','23104 Fr.docx','23105.docx','23106.docx','23107.docx','23108.docx'],
+      '2021-1':['23101 En.docx','23101 Fr.docx','23102 En.docx','23102 Fr.docx','23103 En.docx','23103 Fr.docx','23104 En.docx','23104 Fr.docx','23105 En.docx','23105 Fr.docx','23106 En.docx','23106 Fr.docx','23107 En.docx','23107 Fr.docx','23109.docx'],
+      '2021-2':['23101 En.docx','23101 Fr.docx','23102 En.docx','23102 Fr.docx','23103 En.docx','23103 Fr.docx','23104 En.docx','23104 Fr.docx','23105 En.docx','23105 Fr.docx','23106 En.docx','23106 Fr.docx','23107 En.docx','23107 Fr.docx','23108.docx','23109.docx'],
+      '2022-1':['23102.pdf','23103.pdf','23104.pdf','23107.pdf','23108.pdf'],
+      '2022-2':['23102.pdf','23103.pdf','23104.pdf','23107.pdf','23108.pdf'],
+      '2023-1':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf','23108.pdf','23109.pdf'],
+      '2023-2':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf','23108.pdf','23109.pdf'],
+      '2024-1':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf'],
+      '2024-2':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf'],
+      '2025-1':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf'],
+      '2025-2':['23101.pdf','23102.pdf','23103.pdf','23104.pdf','23105.pdf','23106.pdf','23107.pdf']
+    };
+
+    /* =============================================
+       FILE PARSER
+       ============================================= */
+    function parseFile(filename, sessionId) {
+      const ext = filename.split('.').pop().toLowerCase();
+      const name = filename.replace(/\.\w+$/, '');
+      const codeMatch = name.match(/^(\d{5})/);
+      if (!codeMatch) return null;
+      const code = codeMatch[1];
+      const subjectCode = code.slice(3);
+      const prefix = code.slice(0, 3);
+      const curriculum = prefix === '240' ? 'old' : 'new';
+      const langPart = name.replace(/^\d{5}\s*/, '').replace(/\s*\(\d+\)\s*$/, '').trim();
+      const langs = [];
+      if (langPart) {
+        if (/en/i.test(langPart)) langs.push('EN');
+        if (/fr/i.test(langPart)) langs.push('FR');
+        if (/ar/i.test(langPart)) langs.push('AR');
+      }
+      const isDuplicate = /\(\d+\)/.test(filename);
+      return { filename, path: sessionId + '/' + encodeURIComponent(filename), code, subjectCode, curriculum, langs, ext, isDuplicate };
+    }
+
+    function getCurriculum(year) { return year <= 2013 ? 'old' : 'new'; }
+    function getSubjects(curriculum) { return curriculum === 'old' ? SUBJECTS_OLD : SUBJECTS_NEW; }
+    function getSubjectName(code, curriculum) { return getSubjects(curriculum)[code] || 'Unknown'; }
+
+    /* =============================================
+       SVG HELPERS
+       ============================================= */
+    const SVG = {
+      download: '<svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+      warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 9 0 4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>',
+      missing: '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+    };
+
+    /* =============================================
+       STATE
+       ============================================= */
+    const state = {
+      curriculum: 'all',
+      session: 'all',
+      subject: '',
+      lang: '',
+      type: '',
+      search: '',
+    };
+
+    /* =============================================
+       PROCESS DATA
+       ============================================= */
+    function processAllData() {
+      const sessions = [];
+      ALL_YEARS.forEach(year => {
+        [1, 2].forEach(sNum => {
+          const id = year + '-' + sNum;
+          const curriculum = getCurriculum(year);
+          if (MISSING_SESSIONS.has(id)) {
+            sessions.push({ id, year, session: sNum, curriculum, files: [], isMissing: true, isSpecial: false });
+          } else if (SPECIAL_SESSIONS[id]) {
+            sessions.push({ id, year, session: sNum, curriculum, files: [], isMissing: false, isSpecial: true, specialData: SPECIAL_SESSIONS[id] });
+          } else if (RAW_DATA[id]) {
+            const files = RAW_DATA[id].map(f => parseFile(f, id)).filter(Boolean);
+            sessions.push({ id, year, session: sNum, curriculum, files, isMissing: false, isSpecial: false });
+          } else {
+            sessions.push({ id, year, session: sNum, curriculum, files: [], isMissing: true, isSpecial: false });
+          }
+        });
+      });
+      return sessions;
+    }
+
+    const allSessions = processAllData();
+
+    /* =============================================
+       RENDER: STATS
+       ============================================= */
+    function renderStats() {
+      let totalFiles = 0;
+      allSessions.forEach(s => { totalFiles += s.files.length; });
+      if (SPECIAL_SESSIONS['2020-1']) totalFiles += 1;
+      const availableYears = new Set();
+      allSessions.forEach(s => { if (!s.isMissing) availableYears.add(s.year); });
+      const missingSessions = allSessions.filter(s => s.isMissing).length;
+      const el = document.getElementById('stats-section');
+      el.innerHTML = `
+        <div class="stat-card"><div class="stat-value">${totalFiles}</div><div class="stat-label">Total Exam Files</div></div>
+        <div class="stat-card"><div class="stat-value">${availableYears.size}</div><div class="stat-label">Years Covered (2009-2025)</div></div>
+        <div class="stat-card"><div class="stat-value">18</div><div class="stat-label">Subjects (Both Curricula)</div></div>
+        <div class="stat-card"><div class="stat-value">${missingSessions}</div><div class="stat-label">Missing Sessions</div></div>
+      `;
+    }
+
+    /* =============================================
+       RENDER: TIMELINE
+       ============================================= */
+    function renderTimeline() {
+      const el = document.getElementById('timeline');
+      el.innerHTML = ALL_YEARS.map(year => {
+        const hasSessions = allSessions.some(s => s.year === year && !s.isMissing);
+        const cls = hasSessions ? 'tl-pill' : 'tl-pill missing';
+        return `<button class="${cls}" data-year="${year}" aria-label="Jump to year ${year}">${year}</button>`;
+      }).join('');
+    }
+
+    /* =============================================
+       RENDER: SESSION CARD
+       ============================================= */
+    function renderFileRow(file, subjectCode, subjectName, showSubject) {
+      const langBadges = file.langs.map(l => `<span class="badge badge-${l.toLowerCase()}">${l}</span>`).join('');
+      const typeBadge = `<span class="badge badge-${file.ext}">${file.ext.toUpperCase()}</span>`;
+      const extraClass = showSubject ? '' : ' file-extra-row';
+      return `
+        <div class="subject-row${extraClass}" data-subject="${subjectCode}" data-langs="${file.langs.join(',').toLowerCase() || 'none'}" data-type="${file.ext}" data-fname="${file.filename.toLowerCase()}">
+          ${showSubject ? `<span class="subject-code">${subjectCode}</span><span class="subject-name">${subjectName}</span>` : `<span class="subject-code"></span><span class="subject-name"></span>`}
+          <a href="${file.path}" class="file-link" title="Download ${file.filename}" download>
+            <span class="file-name">${file.filename}</span>
+            <span class="file-badges">${langBadges}${typeBadge}</span>
+            ${SVG.download}
+          </a>
+        </div>`;
+    }
+
+    function renderMissingSubject(code, name) {
+      return `
+        <div class="subject-row" data-subject="${code}" data-missing="true">
+          <span class="subject-code">${code}</span>
+          <span class="subject-name">${name}</span>
+          <div class="missing-file">${SVG.missing}<span>Not available</span></div>
+        </div>`;
+    }
+
+    function renderSessionCard(session) {
+      if (session.isSpecial) {
+        return `
+          <article class="session-card session-card--special" data-session-id="${session.id}" data-year="${session.year}" data-session="${session.session}" data-curriculum="${session.curriculum}">
+            <div class="sc-header">
+              <div class="sc-header-left"><span class="session-num">Session ${session.session}</span></div>
+              <span class="file-count-badge">1 file</span>
+            </div>
+            <div class="special-note">${SVG.warning}<span>${session.specialData.note}</span></div>
+            <div class="sc-body">
+              <div class="subject-row" data-subject="all" data-langs="none" data-type="pdf" data-fname="2020-1.pdf">
+                <span class="subject-code">*</span>
+                <span class="subject-name">All Subjects</span>
+                <a href="${session.specialData.file}" class="file-link" title="Download ${session.specialData.file}" download>
+                  <span class="file-name">${session.specialData.file}</span>
+                  <span class="file-badges"><span class="badge badge-pdf">PDF</span></span>
+                  ${SVG.download}
+                </a>
+              </div>
+            </div>
+          </article>`;
+      }
+      if (session.isMissing) {
+        return `
+          <article class="session-card session-card--missing" data-session-id="${session.id}" data-year="${session.year}" data-session="${session.session}" data-curriculum="${session.curriculum}">
+            <div class="sc-header">
+              <div class="sc-header-left"><span class="session-num">Session ${session.session}</span></div>
+              <span class="file-count-badge" style="color:var(--danger)">Missing</span>
+            </div>
+            <div class="sc-body" style="padding:16px;text-align:center;">
+              <p class="missing-label">${SVG.missing} No exam files available for this session</p>
+            </div>
+          </article>`;
+      }
+
+      const subjects = getSubjects(session.curriculum);
+      const bySubject = {};
+      session.files.forEach(f => {
+        if (!bySubject[f.subjectCode]) bySubject[f.subjectCode] = [];
+        bySubject[f.subjectCode].push(f);
+      });
+
+      let bodyHtml = '';
+      Object.keys(subjects).forEach(code => {
+        const files = bySubject[code] || [];
+        if (files.length === 0) {
+          bodyHtml += renderMissingSubject(code, subjects[code]);
+        } else {
+          files.forEach((f, i) => {
+            bodyHtml += renderFileRow(f, code, subjects[code], i === 0);
+          });
+        }
+      });
+
+      return `
+        <article class="session-card" data-session-id="${session.id}" data-year="${session.year}" data-session="${session.session}" data-curriculum="${session.curriculum}">
+          <div class="sc-header">
+            <div class="sc-header-left"><span class="session-num">Session ${session.session}</span></div>
+            <span class="file-count-badge">${session.files.length} files</span>
+          </div>
+          <div class="sc-body">${bodyHtml}</div>
+        </article>`;
+    }
+
+    /* =============================================
+       RENDER: EXAMS
+       ============================================= */
+    function renderExams() {
+      const el = document.getElementById('exams-container');
+      let html = '';
+      const years = [...ALL_YEARS].reverse();
+      years.forEach(year => {
+        const yearSessions = allSessions.filter(s => s.year === year);
+        const allMissing = yearSessions.every(s => s.isMissing);
+        const curriculum = getCurriculum(year);
+        const badgeCls = curriculum === 'old' ? 'old' : 'new';
+        const badgeText = curriculum === 'old' ? 'Old Curriculum (240)' : 'New Curriculum (231)';
+        html += `
+          <div class="year-group${allMissing ? ' missing-year' : ''}" id="year-${year}" data-year="${year}">
+            <div class="year-header">
+              <span class="year-label">${year}</span>
+              <span class="curriculum-badge ${badgeCls}">${badgeText}</span>
+              ${allMissing ? '<span style="font-size:13px;color:var(--danger)">No data available</span>' : ''}
+            </div>
+            <div class="sessions-grid">
+              ${yearSessions.map(s => renderSessionCard(s)).join('')}
+            </div>
+          </div>`;
+      });
+      el.innerHTML = html;
+    }
+
+    /* =============================================
+       RENDER: COVERAGE MATRIX
+       ============================================= */
+    function renderMatrix() {
+      const el = document.getElementById('matrix-content');
+      let html = '';
+      // New curriculum
+      html += renderMatrixEra('New Curriculum (231)', SUBJECTS_NEW, allSessions.filter(s => getCurriculum(s.year) === 'new'));
+      // Old curriculum
+      html += renderMatrixEra('Old Curriculum (240)', SUBJECTS_OLD, allSessions.filter(s => getCurriculum(s.year) === 'old'));
+      el.innerHTML = html;
+    }
+
+    function renderMatrixEra(title, subjects, sessions) {
+      const codes = Object.keys(subjects);
+      const headerCells = codes.map(c => `<th title="${subjects[c]}">${c}<br><span style="font-weight:400;font-size:10px">${subjects[c]}</span></th>`).join('');
+      const reversed = [...sessions].reverse();
+      const rows = reversed.map(s => {
+        const bySubject = {};
+        s.files.forEach(f => { bySubject[f.subjectCode] = true; });
+        const cells = codes.map(code => {
+          if (s.isMissing) return `<td><span class="dot dot-missing" title="Session missing"></span></td>`;
+          if (s.isSpecial) return `<td><span class="dot dot-partial" title="Combined PDF"></span></td>`;
+          const has = !!bySubject[code];
+          return `<td><span class="dot ${has ? 'dot-available' : 'dot-missing'}" title="${has ? 'Available' : 'Missing'}"></span></td>`;
+        }).join('');
+        const rowCls = s.isMissing ? ' class="missing-row"' : '';
+        return `<tr${rowCls}><td>${s.id}</td>${cells}</tr>`;
+      }).join('');
+
+      return `
+        <div class="matrix-era">
+          <div class="matrix-era-label">${title}</div>
+          <div class="matrix-wrap">
+            <table class="matrix-table" role="grid">
+              <thead><tr><th>Session</th>${headerCells}</tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
+    }
+
+    /* =============================================
+       FILTER & SEARCH
+       ============================================= */
+    function applyFilters() {
+      const query = state.search.toLowerCase().trim();
+      let visibleFiles = 0;
+      let visibleSessions = 0;
+
+      document.querySelectorAll('.session-card').forEach(card => {
+        const cardYear = card.dataset.year;
+        const cardSession = card.dataset.session;
+        const cardCurriculum = card.dataset.curriculum;
+
+        // Session-level filters
+        if (state.curriculum !== 'all' && cardCurriculum !== state.curriculum) {
+          card.classList.add('hidden'); return;
+        }
+        if (state.session !== 'all' && cardSession !== state.session) {
+          card.classList.add('hidden'); return;
+        }
+        card.classList.remove('hidden');
+
+        // File-level filters
+        const rows = card.querySelectorAll('.subject-row');
+        let hasVisible = false;
+        rows.forEach(row => {
+          const rowSubject = row.dataset.subject;
+          const rowLangs = row.dataset.langs || '';
+          const rowType = row.dataset.type || '';
+          const rowFname = row.dataset.fname || '';
+          const isMissing = row.dataset.missing === 'true';
+
+          let visible = true;
+          if (state.subject && rowSubject !== state.subject && rowSubject !== 'all') visible = false;
+          if (state.lang) {
+            if (state.lang === 'none') {
+              if (rowLangs && rowLangs !== 'none') visible = false;
             } else {
-                themeText.textContent = translations[currentLang].dark_mode;
-                themeIcon.textContent = '🌙';
+              if (!rowLangs.includes(state.lang)) visible = false;
             }
+          }
+          if (state.type && rowType !== state.type) visible = false;
+          if (query) {
+            const subjects = getCurriculum(parseInt(cardYear)) === 'old' ? SUBJECTS_OLD : SUBJECTS_NEW;
+            const subjectName = (subjects[rowSubject] || '').toLowerCase();
+            const searchStr = rowFname + ' ' + subjectName + ' ' + cardYear + ' session ' + cardSession;
+            if (!searchStr.includes(query)) visible = false;
+          }
+          if (isMissing && (state.type || state.lang)) visible = false;
+
+          row.classList.toggle('hidden', !visible);
+          if (visible && !isMissing) { hasVisible = true; visibleFiles++; }
+          if (visible && isMissing) hasVisible = true;
+        });
+
+        if (!hasVisible) {
+          card.classList.add('hidden');
+        } else {
+          visibleSessions++;
         }
+      });
 
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            document.documentElement.lang = lang;
-            
-            // Update static texts
-            document.getElementById('app-title').textContent = translations[lang].app_title;
-            document.getElementById('search-input').placeholder = translations[lang].search_placeholder;
-            document.getElementById('filter-all').textContent = translations[lang].filter_all;
-            document.getElementById('filter-available').textContent = translations[lang].filter_available;
-            document.getElementById('filter-missing').textContent = translations[lang].filter_missing;
-            document.getElementById('stat-total-label').textContent = translations[lang].stat_total;
-            document.getElementById('stat-available-label').textContent = translations[lang].stat_available;
-            document.getElementById('stat-missing-label').textContent = translations[lang].stat_missing;
-            
-            // Update theme text
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.getElementById('theme-text').textContent = isDark ? translations[lang].light_mode : translations[lang].dark_mode;
+      // Hide year groups with no visible session cards
+      document.querySelectorAll('.year-group').forEach(yg => {
+        const hasVisibleCards = yg.querySelectorAll('.session-card:not(.hidden)').length > 0;
+        yg.classList.toggle('hidden', !hasVisibleCards);
+      });
 
-            renderData();
+      // Update results info
+      const el = document.getElementById('results-info');
+      const hasFilters = state.curriculum !== 'all' || state.session !== 'all' || state.subject || state.lang || state.type || query;
+      if (hasFilters) {
+        el.innerHTML = `<span class="results-count">Showing <strong>${visibleFiles}</strong> files across <strong>${visibleSessions}</strong> sessions</span>`;
+      } else {
+        let totalFiles = 0;
+        allSessions.forEach(s => totalFiles += s.files.length);
+        if (SPECIAL_SESSIONS['2020-1']) totalFiles++;
+        el.innerHTML = `<span class="results-count">Showing all <strong>${totalFiles}</strong> files across <strong>${allSessions.filter(s => !s.isMissing).length}</strong> sessions</span>`;
+      }
+    }
+
+    /* =============================================
+       EVENT HANDLERS
+       ============================================= */
+    function setupEvents() {
+      // Theme toggle
+      const themeBtn = document.getElementById('theme-toggle');
+      themeBtn.addEventListener('click', toggleTheme);
+
+      // Search
+      const searchInput = document.getElementById('search-input');
+      const searchClear = document.getElementById('search-clear');
+      searchInput.addEventListener('input', (e) => {
+        state.search = e.target.value;
+        searchClear.classList.toggle('visible', !!state.search);
+        applyFilters();
+      });
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        state.search = '';
+        searchClear.classList.remove('visible');
+        applyFilters();
+        searchInput.focus();
+      });
+
+      // Button group toggles
+      document.querySelectorAll('.btn-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          const value = btn.dataset.value;
+          state[filter] = value;
+          btn.closest('.btn-group').querySelectorAll('.btn-toggle').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          applyFilters();
+        });
+      });
+
+      // Select filters
+      document.getElementById('filter-subject').addEventListener('change', (e) => { state.subject = e.target.value; applyFilters(); });
+      document.getElementById('filter-lang').addEventListener('change', (e) => { state.lang = e.target.value; applyFilters(); });
+      document.getElementById('filter-type').addEventListener('change', (e) => { state.type = e.target.value; applyFilters(); });
+
+      // Clear all filters
+      document.getElementById('clear-filters').addEventListener('click', clearFilters);
+
+      // Timeline pills
+      document.getElementById('timeline').addEventListener('click', (e) => {
+        const pill = e.target.closest('.tl-pill');
+        if (!pill) return;
+        const year = pill.dataset.year;
+        const target = document.getElementById('year-' + year);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Update active pill
+          document.querySelectorAll('.tl-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
         }
+      });
 
-        function renderData() {
-            const container = document.getElementById('data-container');
-            const filter = document.getElementById('filter-select').value;
-            const searchQuery = document.getElementById('search-input').value.toLowerCase();
-            const t = translations[currentLang];
-            
-            container.innerHTML = '';
-            
-            let total = 0;
-            let available = 0;
-            let missing = 0;
+      // Matrix toggle
+      const matrixToggle = document.getElementById('matrix-toggle');
+      const matrixContent = document.getElementById('matrix-content');
+      matrixToggle.addEventListener('click', () => {
+        const isVisible = matrixContent.classList.toggle('visible');
+        matrixToggle.setAttribute('aria-expanded', isVisible);
+        matrixToggle.textContent = isVisible ? 'Hide Matrix' : 'Show Matrix';
+      });
 
-            // Sort years descending
-            const years = Object.keys(rawData).sort((a, b) => b - a);
+      // Back to top
+      const backBtn = document.getElementById('back-to-top');
+      backBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-            years.forEach(year => {
-                let yearMatchSearch = year.includes(searchQuery);
-                
-                const sessions = [1, 2];
-                let yearHasContent = false;
-                let yearHtml = `<div class="year-card">
-                    <div class="year-header">
-                        <span class="year-title">${t.year} ${year}</span>
-                        <span class="curriculum-badge">${rawData[year]["1"].curriculum === "231" ? t.curr231 : t.curr240}</span>
-                    </div>`;
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+          if (e.key === 'Escape') {
+            e.target.blur();
+            if (e.target === searchInput) {
+              searchInput.value = '';
+              state.search = '';
+              searchClear.classList.remove('visible');
+              applyFilters();
+            }
+          }
+          return;
+        }
+        if (e.key === '/') { e.preventDefault(); searchInput.focus(); }
+        if (e.key === 't' || e.key === 'T') { toggleTheme(); }
+        if (e.key === 'm' || e.key === 'M') { matrixToggle.click(); }
+      });
 
-                sessions.forEach(session => {
-                    const sData = rawData[year][session.toString()];
-                    let sessionMatchSearch = session.toString().includes(searchQuery);
-                    
-                    let sessionHtml = `<div class="session-section">
-                        <div class="session-title">${t.session} ${session}</div>
-                        <div class="subject-list">`;
-                    
-                    let sessionHasContent = false;
-
-                    const subjects = Object.values(sData.subjects).sort((a, b) => a.code.localeCompare(b.code));
-                    
-                    subjects.forEach(sub => {
-                        total++;
-                        if (sub.available) available++;
-                        else missing++;
-
-                        const subName = t[sub.nameKey] || sub.nameEn;
-                        const subMatchSearch = subName.toLowerCase().includes(searchQuery) || sub.code.includes(searchQuery);
-                        
-                        let showSubject = true;
-
-                        // Filter logic
-                        if (filter === 'available' && !sub.available) showSubject = false;
-                        if (filter === 'missing' && sub.available) showSubject = false;
-
-                        // Search logic
-                        if (searchQuery && !yearMatchSearch && !sessionMatchSearch && !subMatchSearch) showSubject = false;
-
-                        if (showSubject) {
-                            yearHasContent = true;
-                            sessionHasContent = true;
-                            
-                            const statusText = sub.available ? t.available : t.missing;
-                            const statusClass = sub.available ? 'status-available' : 'status-missing';
-                            const titleAttr = sub.available ? sub.path : 'File missing';
-                            
-                            const itemTag = sub.available ? 'a' : 'div';
-                            const hrefAttr = sub.available ? `href="${sub.path}" target="_blank"` : '';
-
-                            sessionHtml += `
-                                <${itemTag} ${hrefAttr} class="subject-item" title="${titleAttr}">
-                                    <span>${sub.code} - ${subName}</span>
-                                    <span class="status-badge ${statusClass}">${statusText}</span>
-                                </${itemTag}>
-                            `;
-                        }
-                    });
-
-                    sessionHtml += `</div></div>`;
-                    
-                    if (sessionHasContent) {
-                        yearHtml += sessionHtml;
-                    }
+      // Scroll observer for timeline and back-to-top
+      let ticking = false;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const year = entry.target.dataset.year;
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(() => {
+                document.querySelectorAll('.tl-pill').forEach(p => {
+                  p.classList.toggle('active', p.dataset.year === year);
                 });
+                ticking = false;
+              });
+            }
+          }
+        });
+      }, { rootMargin: '-100px 0px -70% 0px', threshold: 0 });
 
-                yearHtml += `</div>`;
-                
-                if (yearHasContent) {
-                    container.innerHTML += yearHtml;
-                }
-            });
+      document.querySelectorAll('.year-group').forEach(yg => observer.observe(yg));
 
-            document.getElementById('stat-total').textContent = total;
-            document.getElementById('stat-available').textContent = available;
-            document.getElementById('stat-missing').textContent = missing;
+      // Back to top visibility
+      window.addEventListener('scroll', () => {
+        backBtn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      try { localStorage.setItem('ts2-theme', next); } catch(e) {}
+    }
+
+    function clearFilters() {
+      state.curriculum = 'all';
+      state.session = 'all';
+      state.subject = '';
+      state.lang = '';
+      state.type = '';
+      state.search = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-clear').classList.remove('visible');
+      document.querySelectorAll('.btn-toggle').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'all');
+      });
+      document.getElementById('filter-subject').value = '';
+      document.getElementById('filter-lang').value = '';
+      document.getElementById('filter-type').value = '';
+      applyFilters();
+    }
+
+    /* =============================================
+       INIT
+       ============================================= */
+    function init() {
+      // Restore theme
+      try {
+        const saved = localStorage.getItem('ts2-theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+        else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
         }
+      } catch(e) {}
 
-        // Initialize
-        renderData();
-    </script>
+      renderStats();
+      renderTimeline();
+      renderExams();
+      renderMatrix();
+      applyFilters();
+      setupEvents();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
